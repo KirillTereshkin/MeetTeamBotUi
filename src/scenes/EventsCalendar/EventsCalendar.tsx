@@ -8,6 +8,7 @@ import { AppScenesPaths } from "../../services/model";
 
 import styles from "./EventsCalendar.module.scss";
 import { Button } from "@mui/material";
+import { useMainButton } from "../../services/hooks/useMainButton";
 
 const events = [
   {
@@ -31,20 +32,17 @@ const localizer = momentLocalizer(moment);
 const EventsCalendar: FC = () => {
   const navigate = useNavigate();
 
-  const onCreateEvent = useCallback(() => {
+  const onCreateNewEvent = useCallback(() => {
     navigate({ pathname: AppScenesPaths.creteEvent });
   }, [navigate]);
 
-  useEffect(() => {
-    TG.MainButton.text = "Добавить событие";
-    TG.MainButton.onClick(onCreateEvent);
-    TG.MainButton.show();
-  }, [onCreateEvent]);
+  const { FakeMainButton } = useMainButton({
+    text: "Добавить событие",
+    cb: onCreateNewEvent,
+  });
 
   return (
     <>
-      <Button onClick={onCreateEvent}>FAKE Добавить событие</Button>
-
       <Calendar
         defaultView={Views.DAY}
         localizer={localizer}
@@ -64,6 +62,8 @@ const EventsCalendar: FC = () => {
           },
         }}
       />
+
+      <FakeMainButton />
     </>
   );
 };

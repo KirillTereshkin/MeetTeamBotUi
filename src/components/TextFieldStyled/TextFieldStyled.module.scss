@@ -1,0 +1,18 @@
+.textField {
+  input,
+  textarea {
+    color: var(--tg-theme-text-color) !important;
+  }
+
+  *::before {
+    border-bottom-color: var(--tg-theme-subtitle-text-color) !important;
+  }
+
+  *::after {
+    border-bottom-color: var(--tg-theme-text-color) !important;
+  }
+
+  label {
+    color: var(--tg-theme-subtitle-text-color) !important;
+  }
+}

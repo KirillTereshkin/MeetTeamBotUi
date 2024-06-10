@@ -12,8 +12,6 @@ const App = () => {
     TG.ready();
   }, []);
 
-  console.log("with router");
-
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <RouterProvider router={router} />
