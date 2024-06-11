@@ -1,0 +1,11 @@
+$current-time-color: var(--tg-theme-link-color);
+$today-highlight-bg: var(--tg-theme-secondary-bg-color);
+$time-selection-color: red;
+
+@import "react-big-calendar/lib/sass/styles";
+
+.rbc-calendar {
+  * {
+    text-transform: capitalize;
+  }
+}

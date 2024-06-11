@@ -64,7 +64,7 @@ const CreateEvent: FC = () => {
 
   return (
     <div className={styles.container}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h5" gutterBottom>
         Создать событие
       </Typography>
 
@@ -121,21 +121,4 @@ const CreateEvent: FC = () => {
 
 export default CreateEvent;
 
-// const a = {
-//   accent_text_color: "#6ab2f2",
-//   bg_color: "#17212b",
-//   button_color: "#5288c1",
-//   button_text_color: "#ffffff",
-//   destructive_text_color: "#ec3942",
-//   header_bg_color: "#17212b",
-//   hint_color: "#708499",
-//   link_color: "#6ab3f3",
-//   secondary_bg_color: "#232e3c",
-//   section_bg_color: "#17212b",
-//   section_header_text_color: "#6ab3f3",
-//   subtitle_text_color: "#708499",
-//   text_color: "#f5f5f5",
-// };
-
-// ssh -p 2222 -R b47a85f4-3696-42d2-be5f-c349be9278d3:80:192.168.1.123:5173 devhook.ru
-// https://b47a85f4-3696-42d2-be5f-c349be9278d3.devhook.ru/
+ 

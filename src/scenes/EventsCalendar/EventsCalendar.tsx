@@ -1,14 +1,13 @@
-import { FC, useCallback, useEffect, useMemo } from "react";
-import moment from "moment";
+import { FC, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { Calendar, Views, momentLocalizer } from "react-big-calendar";
+import { Views } from "react-big-calendar";
 
 import { TG } from "../../services/constants";
 import { AppScenesPaths } from "../../services/model";
 
 import styles from "./EventsCalendar.module.scss";
-import { Button } from "@mui/material";
 import { useMainButton } from "../../services/hooks/useMainButton";
+import { CalendarStyled } from "../../components/CalendarStyled";
 
 const events = [
   {
@@ -27,8 +26,6 @@ const events = [
   },
 ];
 
-const localizer = momentLocalizer(moment);
-
 const EventsCalendar: FC = () => {
   const navigate = useNavigate();
 
@@ -43,24 +40,10 @@ const EventsCalendar: FC = () => {
 
   return (
     <>
-      <Calendar
+      <CalendarStyled
         defaultView={Views.DAY}
-        localizer={localizer}
         events={events}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 500 }}
-        formats={{
-          dateFormat: (...val) => {
-            console.log(val);
-            return "dd";
-          },
-
-          dayFormat: (val) => {
-            console.log(val);
-            return val.toLocaleDateString("ru-RU");
-          },
-        }}
+        style={{ height: TG.viewportHeight - 10 }}
       />
 
       <FakeMainButton />

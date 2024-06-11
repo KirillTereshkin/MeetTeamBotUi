@@ -1,0 +1,17 @@
+.autocomplete {
+  svg {
+    fill: var(--tg-theme-subtitle-text-color) !important;
+  }
+
+  div[role="button"] {
+    span {
+      color: var(--tg-theme-button-text-color);
+    }
+
+    path {
+      fill: var(--tg-theme-button-text-color);
+    }
+
+    background-color: var(--tg-theme-button-color);
+  }
+}
