@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { EventsCalendar } from "../scenes/EventsCalendar";
-import { AppScenesPaths } from "./model";
+import { AppScenesPaths } from "./model/utils";
 import { EventForm } from "../scenes/EventForm";
 
 export const TG = window.Telegram.WebApp;

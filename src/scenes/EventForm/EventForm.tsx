@@ -1,4 +1,4 @@
-import { FC, useCallback } from "react";
+import { FC, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -10,7 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 
-import { AppScenesPaths } from "../../services/model";
+import { useEventFormData } from "./services/hooks";
+import { AppScenesPaths } from "../../services/model/utils";
 import { toggleButtonOptions, users } from "./services/constants";
 import { useMainButton } from "../../services/hooks/useMainButton";
 import { TextFieldStyled } from "../../components/TextFieldStyled";
@@ -24,21 +25,25 @@ import styles from "./EventForm.module.scss";
 const EventForm: FC = () => {
   const navigate = useNavigate();
 
-  // const { getTextFieldProps } = useValidation();
+  const { eventFormText, eventValue, onChangeEvent, processEvent } =
+    useEventFormData();
+
+  const [isPeriodic, setIsPeriodic] = useState(false);
 
   const setEvent = useCallback(() => {
+    processEvent();
     navigate(AppScenesPaths.eventCalendar);
-  }, [navigate]);
+  }, [navigate, processEvent]);
 
   const { FakeMainButton } = useMainButton({
-    text: "Cоздать событие",
+    text: eventFormText.button,
     cb: setEvent,
   });
 
   return (
     <div className={styles.container}>
       <Typography variant="h5" gutterBottom>
-        Создать событие
+        {eventFormText.header}
       </Typography>
 
       <Card variant="outlined" className={styles.card}>
@@ -54,12 +59,22 @@ const EventForm: FC = () => {
           <TextFieldStyled
             label="Наименование"
             variant="standard"
+            //
+            value={eventValue.title}
+            onChange={(e) => {
+              onChangeEvent("title", e.target.value);
+            }}
             // {...getTextFieldProps("title")}
           />
 
           <TextFieldStyled
             label="Ссылка"
             variant="standard"
+            //
+            value={eventValue.link}
+            onChange={(e) => {
+              onChangeEvent("link", e.target.value);
+            }}
             // {...getTextFieldProps("link")}
           />
 
@@ -67,12 +82,23 @@ const EventForm: FC = () => {
             options={users}
             getOptionLabel={(option) => option.name}
             textFieldLabel="Участники"
+            //
+            onChange={(_, val) => {
+              onChangeEvent(
+                "participants",
+                val.map((item) => item.id)
+              );
+            }}
             // {...getTextFieldProps("participants")}
           />
 
           <DatePickerStyled
             label="Дата"
             slotProps={{ textField: { variant: "standard" } }}
+            //
+            onChange={(e) => {
+              onChangeEvent("date", e?.format("YYYY-MM-DD"));
+            }}
             // {...getTextFieldProps("date")}
           />
 
@@ -80,22 +106,38 @@ const EventForm: FC = () => {
             label="Начало"
             slotProps={{ textField: { variant: "standard" } }}
             ampm={false}
+            //
+            onChange={(e) => {
+              // console.log(e.)
+              onChangeEvent("start", e?.format("HH:mm"));
+            }}
           />
 
           <TimePickerStyled
             label="Конец"
             slotProps={{ textField: { variant: "standard" } }}
             ampm={false}
+            //
+            onChange={(e) => {
+              onChangeEvent("end", e?.format("HH:mm"));
+            }}
           />
 
           <FormGroup>
             <FormControlLabel
               control={<Checkbox defaultChecked />}
               label="Периодическое"
+              checked={isPeriodic}
+              onChange={() => setIsPeriodic(!isPeriodic)}
             />
           </FormGroup>
 
-          <ToggleButtonGroupStyled options={toggleButtonOptions} value="once" />
+          {isPeriodic && (
+            <ToggleButtonGroupStyled
+              options={toggleButtonOptions}
+              value="once"
+            />
+          )}
 
           <TextFieldStyled label="Описание" variant="standard" multiline />
         </Box>

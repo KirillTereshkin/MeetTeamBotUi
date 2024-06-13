@@ -1,6 +1,20 @@
 import { Formats } from "react-big-calendar";
 
 export const formats: Formats = {
+  eventTimeRangeFormat: (val) => {
+    const timeStr1 = new Date(val.start).toLocaleTimeString("ru-RU", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    const timeStr2 = new Date(val.end).toLocaleTimeString("ru-RU", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    return `${timeStr1} - ${timeStr2}`;
+  },
+
   dateFormat: (val) =>
     val.toLocaleDateString("ru-RU", {
       day: "2-digit",

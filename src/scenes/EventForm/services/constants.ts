@@ -1,8 +1,10 @@
+import { Event, Periodicity } from "../../../services/model/event";
+
 export const toggleButtonOptions = [
-  { value: "once", children: "Единожды" },
-  { value: "weekly", children: "Раз в неделю" },
-  { value: "monthly", children: "Раз в месяц" },
-  { value: "daily", children: "Каждый рабочий день" },
+  { value: Periodicity.once, children: "Единожды" },
+  { value: Periodicity.weekly, children: "Раз в неделю" },
+  { value: Periodicity.monthly, children: "Раз в месяц" },
+  { value: Periodicity.daily, children: "Каждый рабочий день" },
 ];
 
 export enum FieldsNames {
@@ -20,38 +22,53 @@ export const requiredErrorMsg = "не может отсутствовать";
 
 export const users = [
   {
-    id: 1,
     name: "Кирилл",
-    tg: "@Kirill",
+    id: "@Kirill",
   },
 
   {
-    id: 2,
     name: "Андрей",
-    tg: "@Andrey",
+    id: "@Andrey",
   },
 
   {
-    id: 3,
     name: "Антон",
-    tg: "@Anton",
+    id: "@Anton",
   },
 
   {
-    id: 4,
     name: "Валера",
-    tg: "@Valera",
+    id: "@Valera",
   },
 
   {
-    id: 5,
     name: "Вика",
-    tg: "@Vika",
+    id: "@Vika",
   },
 
   {
-    id: 6,
     name: "Kolya",
-    tg: "@Kolya",
+    id: "@Kolya",
   },
 ];
+
+export const usersObject = users.reduce(
+  (prev, itm) => ({ ...prev, [itm.id]: itm }),
+  {}
+);
+
+export const createEventFormText = {
+  header: "Создать событие",
+  button: "Создать событие",
+};
+
+export const editEventFormText = {
+  header: "Редактировать событие",
+  button: "Сохранить изменения",
+};
+
+export const initialEventData: Partial<Event> = {
+  title: "",
+  link: "",
+  participants: [],
+};
