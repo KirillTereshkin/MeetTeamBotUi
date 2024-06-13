@@ -30,7 +30,7 @@ const EventsCalendar: FC = () => {
   const navigate = useNavigate();
 
   const onCreateNewEvent = useCallback(() => {
-    navigate({ pathname: AppScenesPaths.creteEvent });
+    navigate({ pathname: AppScenesPaths.eventForm });
   }, [navigate]);
 
   const { FakeMainButton } = useMainButton({

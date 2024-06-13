@@ -5,11 +5,11 @@
   }
 
   svg {
-    fill: var(--tg-theme-subtitle-text-color) !important;
+    fill: var(--tg-theme-text-color) !important;
   }
 
   *::before {
-    border-bottom-color: var(--tg-theme-subtitle-text-color) !important;
+    border-bottom-color: var(--tg-theme-text-color) !important;
   }
 
   *::after {
@@ -17,6 +17,6 @@
   }
 
   label {
-    color: var(--tg-theme-subtitle-text-color) !important;
+    color: var(--tg-theme-text-color) !important;
   }
 }

@@ -1,11 +1,40 @@
 $current-time-color: var(--tg-theme-link-color);
 $today-highlight-bg: var(--tg-theme-secondary-bg-color);
-$time-selection-color: red;
+$btn-color: var(--tg-theme-button-text-color);
 
 @import "react-big-calendar/lib/sass/styles";
 
 .rbc-calendar {
   * {
     text-transform: capitalize;
+    font-size: 16px;
+  }
+
+  .rbc-btn-group {
+    margin: 10px;
+  }
+
+  .rbc-btn-group {
+    button {
+      transition: background-color 100ms linear;
+      background-color: var(--tg-theme-button-color);
+      cursor: pointer;
+      border: none;
+      padding: 10px;
+
+      &:hover {
+        background-color: var(--tg-theme-link-color);
+      }
+
+      &.rbc-active,
+      &.rbc-active:hover {
+        background-color: var(--tg-theme-subtitle-text-color);
+      }
+    }
+  }
+
+  .rbc-off-range-bg {
+    background-color: var(--tg-theme-secondary-bg-color);
+    color: var(--tg-theme-subtitle-text-color);
   }
 }

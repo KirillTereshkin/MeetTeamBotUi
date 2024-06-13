@@ -1,0 +1,27 @@
+.toggleButtonGroup {
+  * {
+    font-size: 0.75rem !important;
+    font-weight: initial !important;
+    text-transform: capitalize !important;
+  }
+
+  button {
+    transition: background-color 100ms linear;
+    background-color: var(--tg-theme-button-color);
+    color: var(--tg-theme-button-text-color);
+
+    &:hover {
+      background-color: var(--tg-theme-link-color);
+    }
+
+    &[aria-pressed="true"],
+    &[aria-pressed="true"]:hover {
+      background-color: var(--tg-theme-subtitle-text-color);
+      color: var(--tg-theme-button-text-color);
+    }
+  }
+}
+
+// $current-time-color: var(--tg-theme-link-color);
+// $today-highlight-bg: var(--tg-theme-secondary-bg-color);
+// $btn-color: var(--tg-theme-button-text-color);

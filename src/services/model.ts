@@ -1,4 +1,4 @@
 export enum AppScenesPaths {
   eventCalendar = "/",
-  creteEvent = "create-event",
+  eventForm = "event-form",
 }

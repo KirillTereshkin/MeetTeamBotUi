@@ -1,6 +1,6 @@
 .autocomplete {
   svg {
-    fill: var(--tg-theme-subtitle-text-color) !important;
+    fill: var(--tg-theme-text-color) !important;
   }
 
   div[role="button"] {
@@ -13,5 +13,9 @@
     }
 
     background-color: var(--tg-theme-button-color);
+  }
+
+  div[role="presentation"] {
+    border: 1px solid red !important;
   }
 }

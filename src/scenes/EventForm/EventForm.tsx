@@ -1,65 +1,38 @@
 import { FC, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Autocomplete, Box, Card, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Typography,
+} from "@mui/material";
 
 import { AppScenesPaths } from "../../services/model";
+import { toggleButtonOptions, users } from "./services/constants";
 import { useMainButton } from "../../services/hooks/useMainButton";
 import { TextFieldStyled } from "../../components/TextFieldStyled";
 import { DatePickerStyled } from "../../components/DatePickerStyled";
 import { TimePickerStyled } from "../../components/TimePickerStyled";
-
-import styles from "./CreateEvent.module.scss";
 import { AutocompleteStyled } from "../../components/AutocompleteStyled";
+import { ToggleButtonGroupStyled } from "../../components/ToggleButtonGroup";
 
-const users = [
-  {
-    id: 1,
-    name: "Кирилл",
-    tg: "@Kirill",
-  },
+import styles from "./EventForm.module.scss";
 
-  {
-    id: 2,
-    name: "Андрей",
-    tg: "@Andrey",
-  },
-
-  {
-    id: 3,
-    name: "Антон",
-    tg: "@Anton",
-  },
-
-  {
-    id: 4,
-    name: "Валера",
-    tg: "@Valera",
-  },
-
-  {
-    id: 5,
-    name: "Вика",
-    tg: "@Vika",
-  },
-
-  {
-    id: 6,
-    name: "Kolya",
-    tg: "@Kolya",
-  },
-];
-
-const CreateEvent: FC = () => {
+const EventForm: FC = () => {
   const navigate = useNavigate();
 
-  const createEvent = useCallback(() => {
+  // const { getTextFieldProps } = useValidation();
+
+  const setEvent = useCallback(() => {
     navigate(AppScenesPaths.eventCalendar);
   }, [navigate]);
 
   const { FakeMainButton } = useMainButton({
     text: "Cоздать событие",
-    cb: createEvent,
+    cb: setEvent,
   });
 
   return (
@@ -78,19 +51,29 @@ const CreateEvent: FC = () => {
             flexDirection: "column",
           }}
         >
-          <TextFieldStyled label="Наименование" variant="standard" />
+          <TextFieldStyled
+            label="Наименование"
+            variant="standard"
+            // {...getTextFieldProps("title")}
+          />
 
-          <TextFieldStyled label="Ссылка" variant="standard" />
+          <TextFieldStyled
+            label="Ссылка"
+            variant="standard"
+            // {...getTextFieldProps("link")}
+          />
 
           <AutocompleteStyled
             options={users}
             getOptionLabel={(option) => option.name}
             textFieldLabel="Участники"
+            // {...getTextFieldProps("participants")}
           />
 
           <DatePickerStyled
             label="Дата"
             slotProps={{ textField: { variant: "standard" } }}
+            // {...getTextFieldProps("date")}
           />
 
           <TimePickerStyled
@@ -105,12 +88,16 @@ const CreateEvent: FC = () => {
             ampm={false}
           />
 
-          <TextFieldStyled
-            label="Описание"
-            variant="standard"
-            multiline
-            rows={3}
-          />
+          <FormGroup>
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              label="Периодическое"
+            />
+          </FormGroup>
+
+          <ToggleButtonGroupStyled options={toggleButtonOptions} value="once" />
+
+          <TextFieldStyled label="Описание" variant="standard" multiline />
         </Box>
       </Card>
 
@@ -119,6 +106,4 @@ const CreateEvent: FC = () => {
   );
 };
 
-export default CreateEvent;
-
- 
+export default EventForm;
