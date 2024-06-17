@@ -4,7 +4,8 @@ import { Provider } from "react-redux";
 
 import App from "./App.tsx";
 
-import { store } from "./services/store/index.ts";
+import { store } from "./services/store/index";
+import { enableMocking } from "./services/mock/server.ts";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -13,10 +14,12 @@ import "@fontsource/roboto/700.css";
 
 import "./index.scss";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
-);
+enableMocking().then(() => {
+  ReactDOM.createRoot(document.getElementById("root")!).render(
+    <React.StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </React.StrictMode>
+  );
+});

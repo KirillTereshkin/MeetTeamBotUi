@@ -3,6 +3,7 @@ import { EventsCalendar } from "../scenes/EventsCalendar";
 import { AppScenesPaths } from "./model/utils";
 import { EventForm } from "../scenes/EventForm";
 
+
 export const TG = window.Telegram.WebApp;
 
 export const router = createBrowserRouter([

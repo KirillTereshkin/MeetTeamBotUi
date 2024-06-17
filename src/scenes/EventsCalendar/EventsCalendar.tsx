@@ -9,6 +9,7 @@ import { useMainButton } from "../../services/hooks/useMainButton";
 
 import { useSelector } from "react-redux";
 import { eventsSelector } from "./services/selectors";
+import { useGetEventsQuery } from "../../services/store/queries";
 
 // const events = [
 //   {
@@ -30,25 +31,25 @@ import { eventsSelector } from "./services/selectors";
 const EventsCalendar: FC = () => {
   const navigate = useNavigate();
 
-  const events = useSelector(eventsSelector);
+  const { data: events } = useGetEventsQuery();
 
-  const onSelectEvent = (e: Event) => {
-    navigate({
-      pathname: AppScenesPaths.eventForm,
-      search: createSearchParams({
-        id: (e as unknown).id,
-      }).toString(),
-    });
-  };
+  // const onSelectEvent = (e: Event) => {
+  //   navigate({
+  //     pathname: AppScenesPaths.eventForm,
+  //     search: createSearchParams({
+  //       id: (e as unknown).id,
+  //     }).toString(),
+  //   });
+  // };
 
-  const onCreateNewEvent = useCallback(() => {
-    navigate({ pathname: AppScenesPaths.eventForm });
-  }, [navigate]);
+  // const onCreateNewEvent = useCallback(() => {
+  //   navigate({ pathname: AppScenesPaths.eventForm });
+  // }, [navigate]);
 
-  const { FakeMainButton } = useMainButton({
-    text: "Добавить событие",
-    cb: onCreateNewEvent,
-  });
+  // const { FakeMainButton } = useMainButton({
+  //   text: "Добавить событие",
+  //   cb: onCreateNewEvent,
+  // });
 
   return (
     <>
@@ -56,10 +57,13 @@ const EventsCalendar: FC = () => {
         defaultView={Views.DAY}
         events={events}
         style={{ height: TG.viewportHeight - 10 }}
-        onSelectEvent={onSelectEvent}
+        startAccessor={(event) => new Date(event.start)}
+        endAccessor={(event) => new Date(event.end)}
+
+        // onSelectEvent={onSelectEvent}
       />
 
-      <FakeMainButton />
+      {/* <FakeMainButton /> */}
     </>
   );
 };

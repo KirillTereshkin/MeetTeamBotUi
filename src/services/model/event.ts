@@ -9,8 +9,7 @@ export interface Event {
   id?: string;
   title: string;
   link: string;
-  participants: string[];
-  date: string;
+  participants: Array<string | number>;
   start: string;
   end: string;
   periodicity?: Periodicity;
