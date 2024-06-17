@@ -1,69 +1,46 @@
 import { FC, useCallback } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { Event, Views } from "react-big-calendar";
+import { Event as CalendarEvent } from "react-big-calendar";
 
-import { TG } from "../../services/constants";
+import { Event } from "../../services/model/event";
 import { AppScenesPaths } from "../../services/model/utils";
 import { CalendarStyled } from "../../components/CalendarStyled";
-import { useMainButton } from "../../services/hooks/useMainButton";
-
-import { useSelector } from "react-redux";
-import { eventsSelector } from "./services/selectors";
 import { useGetEventsQuery } from "../../services/store/queries";
-
-// const events = [
-//   {
-//     start: "2024-06-20",
-//     end: "2024-06-02",
-//     eventClasses: "optionalEvent",
-//     title: "test event",
-//     description: "This is a test description of an event",
-//   },
-//   {
-//     start: "2024-07-19",
-//     end: "2024-07-25",
-//     title: "test event",
-//     description: "This is a test description of an event",
-//     data: "you can add what ever random data you may want to use later",
-//   },
-// ];
+import { useMainButton } from "../../services/hooks/useMainButton";
 
 const EventsCalendar: FC = () => {
   const navigate = useNavigate();
 
   const { data: events } = useGetEventsQuery();
 
-  // const onSelectEvent = (e: Event) => {
-  //   navigate({
-  //     pathname: AppScenesPaths.eventForm,
-  //     search: createSearchParams({
-  //       id: (e as unknown).id,
-  //     }).toString(),
-  //   });
-  // };
+  const onSelectEvent = (e: CalendarEvent) => {
+    const event = e as unknown as Event;
+    if (!event.id) {
+      return;
+    }
 
-  // const onCreateNewEvent = useCallback(() => {
-  //   navigate({ pathname: AppScenesPaths.eventForm });
-  // }, [navigate]);
+    navigate({
+      pathname: AppScenesPaths.eventForm,
+      search: createSearchParams({
+        id: event.id,
+      }).toString(),
+    });
+  };
 
-  // const { FakeMainButton } = useMainButton({
-  //   text: "Добавить событие",
-  //   cb: onCreateNewEvent,
-  // });
+  const onCreateNewEvent = useCallback(() => {
+    navigate({ pathname: AppScenesPaths.eventForm });
+  }, [navigate]);
+
+  const { FakeMainButton } = useMainButton({
+    text: "Добавить событие",
+    cb: onCreateNewEvent,
+  });
 
   return (
     <>
-      <CalendarStyled
-        defaultView={Views.DAY}
-        events={events}
-        style={{ height: TG.viewportHeight - 10 }}
-        startAccessor={(event) => new Date(event.start)}
-        endAccessor={(event) => new Date(event.end)}
+      <CalendarStyled events={events} onSelectEvent={onSelectEvent} />
 
-        // onSelectEvent={onSelectEvent}
-      />
-
-      {/* <FakeMainButton /> */}
+      <FakeMainButton />
     </>
   );
 };

@@ -1,9 +1,11 @@
 import { FC, ComponentProps } from "react";
+import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import { Calendar, momentLocalizer } from "react-big-calendar";
 
 import { formats } from "./services/formats";
+import { TG } from "../../services/constants";
 import { messages } from "./services/constants";
+import { accessors } from "./services/accessors";
 
 import "./CalendarStyled.scss";
 
@@ -20,9 +22,12 @@ const CalendarStyled: FC<CalendarStyledProps> = (
 ) => (
   <Calendar
     {...props}
+    {...accessors}
     messages={messages}
     localizer={localizer}
     formats={formats}
+    defaultView={Views.DAY}
+    style={{ height: TG.viewportHeight - 10 }}
   />
 );
 
