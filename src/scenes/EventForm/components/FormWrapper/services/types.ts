@@ -1,14 +1,9 @@
-import { Periodicity } from "../../../services/model/event";
-
-export type ParticipantType = {
-  name: string;
-  id: string;
-};
+import { Periodicity } from "../../../../../services/model/event";
 
 export type EventFormType = {
   title: string;
   link: string;
-  participants: ParticipantType[];
+  participants: Array<string | number>;
   periodicity: Periodicity;
   date: string;
   start: string;

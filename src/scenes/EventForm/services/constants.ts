@@ -7,18 +7,7 @@ export const toggleButtonOptions = [
   { value: Periodicity.daily, children: "Каждый рабочий день" },
 ];
 
-export enum FieldsNames {
-  title = "Наименование",
-  link = "Ссылка",
-  participants = "Участники",
-  date = "Дата",
-  start = "Начало",
-  end = "Конец",
-  periodicity = "Периодичность",
-  description = "Описание",
-}
 
-export const requiredErrorMsg = "не может отсутствовать";
 
 export const users = [
   {

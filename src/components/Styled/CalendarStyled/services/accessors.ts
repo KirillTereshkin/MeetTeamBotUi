@@ -1,4 +1,4 @@
-import { Event } from "../../../services/model/event";
+import { Event } from "../../../../services/model/event";
 
 export const accessors = {
   startAccessor: (event: unknown) => new Date((event as Event).start),

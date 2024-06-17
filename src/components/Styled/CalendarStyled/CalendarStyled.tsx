@@ -3,7 +3,7 @@ import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 
 import { formats } from "./services/formats";
-import { TG } from "../../services/constants";
+import { TG } from "../../../services/constants";
 import { messages } from "./services/constants";
 import { accessors } from "./services/accessors";
 

@@ -10,20 +10,25 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useEventFormData } from "./services/hooks";
+import { formWrapper } from "./components/FormWrapper";
+import { toggleButtonOptions } from "./services/constants";
 import { AppScenesPaths } from "../../services/model/utils";
-import { toggleButtonOptions, users } from "./services/constants";
+import { useGetUsersQuery } from "../../services/store/queries";
 import { useMainButton } from "../../services/hooks/useMainButton";
-import { TextFieldStyled } from "../../components/TextFieldStyled";
-import { DatePickerStyled } from "../../components/DatePickerStyled";
-import { TimePickerStyled } from "../../components/TimePickerStyled";
-import { AutocompleteStyled } from "../../components/AutocompleteStyled";
+import { useEventFormData } from "./services/hooks/useEventFormData";
+import { TextFieldForm } from "../../components/FormFields/TextFieldForm";
+import { TimePickerStyled } from "../../components/Styled/TimePickerStyled";
+import { DatePickerForm } from "../../components/FormFields/DatePickerForm";
 import { ToggleButtonGroupStyled } from "../../components/ToggleButtonGroup";
+import { AutocompleteStyled } from "../../components/Styled/AutocompleteStyled";
 
 import styles from "./EventForm.module.scss";
+import { TimePickerForm } from "../../components/FormFields/TimePickerForm";
 
 const EventForm: FC = () => {
   const navigate = useNavigate();
+
+  const { data: users } = useGetUsersQuery();
 
   const { eventFormText, eventValue, onChangeEvent, processEvent } =
     useEventFormData();
@@ -56,72 +61,28 @@ const EventForm: FC = () => {
             flexDirection: "column",
           }}
         >
-          <TextFieldStyled
-            label="Наименование"
-            variant="standard"
-            //
-            value={eventValue.title}
-            onChange={(e) => {
-              onChangeEvent("title", e.target.value);
-            }}
-            // {...getTextFieldProps("title")}
-          />
+          <TextFieldForm label="Наименование" name="title" />
 
-          <TextFieldStyled
-            label="Ссылка"
-            variant="standard"
-            //
-            value={eventValue.link}
-            onChange={(e) => {
-              onChangeEvent("link", e.target.value);
-            }}
-            // {...getTextFieldProps("link")}
-          />
+          <TextFieldForm label="Ссылка" name="link" />
 
           <AutocompleteStyled
-            options={users}
+            options={users || []}
             getOptionLabel={(option) => option.name}
+            getOptionKey={(option) => option.id}
             textFieldLabel="Участники"
-            //
             onChange={(_, val) => {
               onChangeEvent(
                 "participants",
                 val.map((item) => item.id)
               );
             }}
-            // {...getTextFieldProps("participants")}
           />
 
-          <DatePickerStyled
-            label="Дата"
-            slotProps={{ textField: { variant: "standard" } }}
-            //
-            onChange={(e) => {
-              onChangeEvent("date", e?.format("YYYY-MM-DD"));
-            }}
-            // {...getTextFieldProps("date")}
-          />
+          <DatePickerForm label="Дата" name="date" disablePast />
 
-          <TimePickerStyled
-            label="Начало"
-            slotProps={{ textField: { variant: "standard" } }}
-            ampm={false}
-            //
-            onChange={(e) => {
-              // console.log(e.)
-              onChangeEvent("start", e?.format("HH:mm"));
-            }}
-          />
+          <TimePickerForm label="Начало" name="start"   />
 
-          <TimePickerStyled
-            label="Конец"
-            slotProps={{ textField: { variant: "standard" } }}
-            ampm={false}
-            //
-            onChange={(e) => {
-              onChangeEvent("end", e?.format("HH:mm"));
-            }}
-          />
+          <TimePickerForm label="Конец" name="end"  />
 
           <FormGroup>
             <FormControlLabel
@@ -139,7 +100,7 @@ const EventForm: FC = () => {
             />
           )}
 
-          <TextFieldStyled label="Описание" variant="standard" multiline />
+          <TextFieldForm name="description" label="Описание" multiline />
         </Box>
       </Card>
 
@@ -148,4 +109,4 @@ const EventForm: FC = () => {
   );
 };
 
-export default EventForm;
+export default formWrapper(EventForm);
