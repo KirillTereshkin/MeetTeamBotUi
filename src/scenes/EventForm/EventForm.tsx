@@ -22,22 +22,15 @@ import {
 import styles from "./EventForm.module.scss";
 
 const EventForm: FC = () => {
-  const navigate = useNavigate();
-
   const { data: users } = useGetUsersQuery();
 
-  const { eventFormText, onChangeEvent, processEvent } = useEventFormData();
+  const { eventFormText, processEvent } = useEventFormData();
 
   const [isPeriodic, setIsPeriodic] = useState(false);
 
-  const setEvent = useCallback(() => {
-    processEvent();
-    navigate(AppScenesPaths.eventCalendar);
-  }, [navigate, processEvent]);
-
   const { FakeMainButton } = useMainButton({
     text: eventFormText.button,
-    cb: setEvent,
+    cb: processEvent,
   });
 
   return (

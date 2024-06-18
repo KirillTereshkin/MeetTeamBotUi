@@ -1,53 +1,64 @@
-import { useState, useCallback, useEffect } from "react";
+import { useCallback } from "react";
+import { useFormikContext } from "formik";
+import { useNavigate } from "react-router-dom";
 
 import { useEditedEvent } from "./useEditedEvent";
-import { Event } from "../../../../services/model/event";
+import { TG } from "../../../../services/constants";
+import { AppScenesPaths } from "../../../../services/model/utils";
+import { editEventFormText, createEventFormText } from "../constants";
+import { EventFormType } from "../../components/FormWrapper/services/types";
+import { incorrectFormValues } from "../../components/FormWrapper/services/constants";
+import { useIsUnknownPlatform } from "../../../../services/hooks/useIsUnknownPlatform";
+import { convertFormEventToEvent } from "../../components/FormWrapper/services/helpers";
 import {
   useCreateEventMutation,
   useUpdateEventMutation,
 } from "../../../../services/store/queries";
-import {
-  initialEventData,
-  editEventFormText,
-  createEventFormText,
-} from "../constants";
 
 export const useEventFormData = () => {
-  const { editedEvent, isEdit } = useEditedEvent();
+  const navigate = useNavigate();
+  const { isUnknownPlatform } = useIsUnknownPlatform();
+
+  const { isEdit } = useEditedEvent();
 
   const [updateMutation] = useUpdateEventMutation();
   const [createMutation] = useCreateEventMutation();
 
-  const [eventValue, setEventValue] = useState<Partial<Event>>({
-    ...initialEventData,
-  });
-
-  const onChangeEvent = (key: keyof Event, val: Event[typeof key]) => {
-    setEventValue((prev) => ({ ...prev, [key]: val }));
-  };
+  const { values, isValid } = useFormikContext<EventFormType>();
 
   const processEvent = useCallback(() => {
-    if (isEdit) {
-      updateMutation(eventValue as Event);
+    if (!isValid) {
+      if (isUnknownPlatform) {
+        window.alert(incorrectFormValues);
+        return;
+      }
+
+      TG.showPopup({
+        title: "Ошибка",
+        message: incorrectFormValues,
+      });
+
       return;
     }
 
-    createMutation(eventValue as Event);
-  }, [createMutation, eventValue, isEdit, updateMutation]);
+    const mutationFn = isEdit ? updateMutation : createMutation;
+    mutationFn(convertFormEventToEvent(values));
+    navigate(AppScenesPaths.eventCalendar);
+  }, [
+    createMutation,
+    isEdit,
+    isUnknownPlatform,
+    isValid,
+    navigate,
+    updateMutation,
+    values,
+  ]);
 
   const eventFormText = isEdit ? editEventFormText : createEventFormText;
 
-  useEffect(() => {
-    if (editedEvent) {
-      setEventValue(editedEvent);
-    }
-  }, [editedEvent]);
-
   return {
     isEdit,
-    eventValue,
     processEvent,
     eventFormText,
-    onChangeEvent,
   };
 };

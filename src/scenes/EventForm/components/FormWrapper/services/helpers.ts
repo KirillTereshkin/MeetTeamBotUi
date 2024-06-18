@@ -31,9 +31,19 @@ const createDateStringFromMoment = (
 };
 
 export const convertEventToFormEvent = (
-  { title, link, participants, periodicity, description, start, end }: Event,
+  {
+    id,
+    title,
+    link,
+    participants,
+    periodicity,
+    description,
+    start,
+    end,
+  }: Event,
   users: User[] = []
 ): EventFormType => ({
+  id,
   title,
   link,
   participants: convertParticipantsToUsers(participants, users),
@@ -45,6 +55,7 @@ export const convertEventToFormEvent = (
 });
 
 export const convertFormEventToEvent = ({
+  id,
   title,
   link,
   participants,
@@ -54,6 +65,7 @@ export const convertFormEventToEvent = ({
   periodicity,
   description,
 }: EventFormType): Event => ({
+  id,
   title,
   link,
   participants: convertUsersToParticipants(participants),

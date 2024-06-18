@@ -6,7 +6,7 @@ import {
   useGetEventsQuery,
   useGetUsersQuery,
 } from "../../../../services/store/queries";
-import { convertEventToFormEvent } from "../../components/FormWrapper/services/helpets";
+import { convertEventToFormEvent } from "../../components/FormWrapper/services/helpers";
 
 export const useEditedEvent = () => {
   const { data: users } = useGetUsersQuery();

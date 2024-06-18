@@ -7,45 +7,6 @@ export const toggleButtonOptions = [
   { value: Periodicity.daily, children: "Каждый рабочий день" },
 ];
 
-
-
-export const users = [
-  {
-    name: "Кирилл",
-    id: "@Kirill",
-  },
-
-  {
-    name: "Андрей",
-    id: "@Andrey",
-  },
-
-  {
-    name: "Антон",
-    id: "@Anton",
-  },
-
-  {
-    name: "Валера",
-    id: "@Valera",
-  },
-
-  {
-    name: "Вика",
-    id: "@Vika",
-  },
-
-  {
-    name: "Kolya",
-    id: "@Kolya",
-  },
-];
-
-export const usersObject = users.reduce(
-  (prev, itm) => ({ ...prev, [itm.id]: itm }),
-  {}
-);
-
 export const createEventFormText = {
   header: "Создать событие",
   button: "Создать событие",

@@ -9,6 +9,8 @@ const formWrapper = withFormik({
 
   handleSubmit: () => {},
 
+  validateOnMount: true,
+
   displayName: "EventFormWrapper",
 });
 

@@ -3,6 +3,7 @@ import { Periodicity } from "../../../../../services/model/event";
 import { User } from "../../../../../services/model/user";
 
 export type EventFormType = {
+  id?: string;
   title: string;
   link: string;
   participants: User[];

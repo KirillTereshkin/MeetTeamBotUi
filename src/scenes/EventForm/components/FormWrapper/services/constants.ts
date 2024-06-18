@@ -15,6 +15,9 @@ export const requiredErrorMsg = "Поле обязательно к заполн
 
 export const invalidFormatErrorMsg = "Неверный формат";
 
+export const incorrectFormValues =
+  "Форма заполнена некорректно, пожалуйста, проверьте данные.";
+
 export const initialEventData: Partial<Event> = {
   title: "",
   link: "",

@@ -1,12 +1,12 @@
-import { ComponentProps, FC, useMemo } from "react";
+import { ComponentProps, FC } from "react";
 
 import { Button } from "@mui/material";
-import { isUnknownPlatformFn } from "../../services/helpers/isUnknownPlatformFn";
+import { useIsUnknownPlatform } from "../../services/hooks/useIsUnknownPlatform";
 
 interface FakeButtonProps extends ComponentProps<typeof Button> {}
 
 const FakeButton: FC<FakeButtonProps> = (props: FakeButtonProps) => {
-  const isUnknownPlatform = useMemo(isUnknownPlatformFn, []);
+  const { isUnknownPlatform } = useIsUnknownPlatform();
 
   if (!isUnknownPlatform) {
     return null;
