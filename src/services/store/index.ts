@@ -1,12 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 
-import events from "./events";
 import { queries } from "./queries";
 
 export const store = configureStore({
   reducer: {
-    events,
     [queries.reducerPath]: queries.reducer,
   },
 

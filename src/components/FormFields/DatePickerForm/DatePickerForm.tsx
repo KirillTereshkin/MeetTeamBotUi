@@ -2,7 +2,7 @@
 import { ComponentProps, FC } from "react";
 import { useField } from "formik";
 
-import { DatePickerStyled } from "../../Styled/DatePickerStyled";
+import { DatePickerStyled } from "../../Styled";
 
 interface DatePickerFormProps extends ComponentProps<typeof DatePickerStyled> {
   name: string;
@@ -11,7 +11,7 @@ interface DatePickerFormProps extends ComponentProps<typeof DatePickerStyled> {
 const DatePickerForm: FC<DatePickerFormProps> = (
   props: DatePickerFormProps
 ) => {
-  const [_1, meta, helpers] = useField(props.name);
+  const [field, meta, helpers] = useField(props.name);
 
   const onChangeHandler: typeof props.onChange = (value, context) => {
     props.onChange?.(value, context);
@@ -26,6 +26,7 @@ const DatePickerForm: FC<DatePickerFormProps> = (
   return (
     <DatePickerStyled
       {...props}
+      value={field.value}
       onChange={onChangeHandler}
       slotProps={{
         textField: {

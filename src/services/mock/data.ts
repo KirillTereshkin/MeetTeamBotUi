@@ -1,5 +1,5 @@
 import { User } from "../model/user";
-import { Event } from "../model/event";
+import { Event, Periodicity } from "../model/event";
 
 export const mockUsers: User[] = [
   {
@@ -39,14 +39,17 @@ export const mockUsers: User[] = [
   },
 ];
 
+const getTodayDay = () => new Date().getDate();
+
 export const mockEvents: Event[] = [
   {
     id: "1",
     title: "New Event 1",
     link: "link",
     participants: [1, 2, 3],
-    start: "2024-06-17T11:10:00.000Z",
-    end: "2024-06-17T12:30:00.000Z",
+    periodicity: Periodicity.once,
+    start: `2024-06-${getTodayDay()}T11:10:00.000Z`,
+    end: `2024-06-${getTodayDay()}T12:30:00.000Z`,
   },
 
   {
@@ -54,7 +57,8 @@ export const mockEvents: Event[] = [
     title: "New Event 2",
     link: "link",
     participants: [1, 2, 3],
-    start: "2024-06-17T14:00:00.000Z",
-    end: "2024-06-17T15:30:00.000Z",
+    periodicity: Periodicity.once,
+    start: `2024-06-${getTodayDay()}T14:00:00.000Z`,
+    end: `2024-06-${getTodayDay()}T15:30:00.000Z`,
   },
 ];

@@ -12,6 +12,6 @@ export interface Event {
   participants: Array<string | number>;
   start: string;
   end: string;
-  periodicity?: Periodicity;
+  periodicity: Periodicity;
   description?: string;
 }

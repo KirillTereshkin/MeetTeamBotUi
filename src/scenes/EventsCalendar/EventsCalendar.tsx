@@ -3,8 +3,8 @@ import { createSearchParams, useNavigate } from "react-router-dom";
 import { Event as CalendarEvent } from "react-big-calendar";
 
 import { Event } from "../../services/model/event";
+import { CalendarStyled } from "../../components/Styled";
 import { AppScenesPaths } from "../../services/model/utils";
-import { CalendarStyled } from "../../components/Styled/CalendarStyled";
 import { useGetEventsQuery } from "../../services/store/queries";
 import { useMainButton } from "../../services/hooks/useMainButton";
 

@@ -1,12 +1,14 @@
+import moment from "moment";
 import { Periodicity } from "../../../../../services/model/event";
+import { User } from "../../../../../services/model/user";
 
 export type EventFormType = {
   title: string;
   link: string;
-  participants: Array<string | number>;
+  participants: User[];
   periodicity: Periodicity;
-  date: string;
-  start: string;
-  end: string;
-  description: string;
+  date: moment.Moment;
+  start: moment.Moment;
+  end: moment.Moment;
+  description?: string;
 };

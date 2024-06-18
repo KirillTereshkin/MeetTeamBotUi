@@ -3,14 +3,14 @@ import { ChangeEvent, FocusEvent, ComponentProps, FC } from "react";
 
 import { useField } from "formik";
 
-import { TextFieldStyled } from "../../Styled/TextFieldStyled";
+import { TextFieldStyled } from "../../Styled";
 
 interface TextFieldFormProps extends ComponentProps<typeof TextFieldStyled> {
   name: string;
 }
 
 const TextFieldForm: FC<TextFieldFormProps> = (props: TextFieldFormProps) => {
-  const [_1, meta, helpers] = useField(props.name);
+  const [field, meta, helpers] = useField(props.name);
 
   const onChangeHandler = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -32,6 +32,7 @@ const TextFieldForm: FC<TextFieldFormProps> = (props: TextFieldFormProps) => {
   return (
     <TextFieldStyled
       {...props}
+      value={field.value}
       variant="standard"
       onChange={onChangeHandler}
       onBlur={onBlurHandler}

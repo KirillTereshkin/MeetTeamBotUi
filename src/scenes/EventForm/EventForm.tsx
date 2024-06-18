@@ -1,37 +1,32 @@
 import { FC, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import {
-  Box,
-  Card,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  Typography,
-} from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 
+import { User } from "../../services/model/user";
 import { formWrapper } from "./components/FormWrapper";
+import { CheckboxStyled } from "../../components/Styled";
 import { toggleButtonOptions } from "./services/constants";
 import { AppScenesPaths } from "../../services/model/utils";
 import { useGetUsersQuery } from "../../services/store/queries";
 import { useMainButton } from "../../services/hooks/useMainButton";
 import { useEventFormData } from "./services/hooks/useEventFormData";
-import { TextFieldForm } from "../../components/FormFields/TextFieldForm";
-import { TimePickerStyled } from "../../components/Styled/TimePickerStyled";
-import { DatePickerForm } from "../../components/FormFields/DatePickerForm";
 import { ToggleButtonGroupStyled } from "../../components/ToggleButtonGroup";
-import { AutocompleteStyled } from "../../components/Styled/AutocompleteStyled";
+import {
+  TextFieldForm,
+  DatePickerForm,
+  TimePickerForm,
+  AutocompleteForm,
+} from "../../components/FormFields";
 
 import styles from "./EventForm.module.scss";
-import { TimePickerForm } from "../../components/FormFields/TimePickerForm";
 
 const EventForm: FC = () => {
   const navigate = useNavigate();
 
   const { data: users } = useGetUsersQuery();
 
-  const { eventFormText, eventValue, onChangeEvent, processEvent } =
-    useEventFormData();
+  const { eventFormText, onChangeEvent, processEvent } = useEventFormData();
 
   const [isPeriodic, setIsPeriodic] = useState(false);
 
@@ -65,33 +60,25 @@ const EventForm: FC = () => {
 
           <TextFieldForm label="Ссылка" name="link" />
 
-          <AutocompleteStyled
+          <AutocompleteForm
+            name="participants"
             options={users || []}
             getOptionLabel={(option) => option.name}
             getOptionKey={(option) => option.id}
             textFieldLabel="Участники"
-            onChange={(_, val) => {
-              onChangeEvent(
-                "participants",
-                val.map((item) => item.id)
-              );
-            }}
           />
 
           <DatePickerForm label="Дата" name="date" disablePast />
 
-          <TimePickerForm label="Начало" name="start"   />
+          <TimePickerForm label="Начало" name="start" />
 
-          <TimePickerForm label="Конец" name="end"  />
+          <TimePickerForm label="Конец" name="end" />
 
-          <FormGroup>
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label="Периодическое"
-              checked={isPeriodic}
-              onChange={() => setIsPeriodic(!isPeriodic)}
-            />
-          </FormGroup>
+          <CheckboxStyled
+            label="Периодическое"
+            checked={isPeriodic}
+            onChange={() => setIsPeriodic(!isPeriodic)}
+          />
 
           {isPeriodic && (
             <ToggleButtonGroupStyled

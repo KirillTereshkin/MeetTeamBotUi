@@ -2,14 +2,14 @@
 import { ComponentProps, FC } from "react";
 import { useField } from "formik";
 
-import { TimePickerStyled } from "../../Styled/TimePickerStyled";
+import { TimePickerStyled } from "../../Styled";
 
 interface TimePickerFormProps extends ComponentProps<typeof TimePickerStyled> {
   name: string;
 }
 
 const TimePickerForm: FC<TimePickerFormProps> = (props) => {
-  const [_1, meta, helpers] = useField(props.name);
+  const [field, meta, helpers] = useField(props.name);
 
   const onChangeHandler: typeof props.onChange = (value, context) => {
     props.onChange?.(value, context);
@@ -27,6 +27,7 @@ const TimePickerForm: FC<TimePickerFormProps> = (props) => {
   return (
     <TimePickerStyled
       {...props}
+      value={field.value}
       onChange={onChangeHandler}
       slotProps={{
         textField: {
